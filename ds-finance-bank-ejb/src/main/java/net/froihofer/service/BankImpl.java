@@ -57,8 +57,9 @@ public class BankImpl implements RemoteBank {
         tradingWebService = new TradingWebServiceService().getTradingWebServicePort();
         BindingProvider bindingProvider = (BindingProvider) tradingWebService;
         bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "https://edu.dedisys.org/ds-finance/ws/TradingService");
-        bindingProvider.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, "csdc22bb_01");
-        bindingProvider.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "daaG2poh5");
+        //Add credentials
+        bindingProvider.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, "");
+        bindingProvider.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "");
         log.info("Initialized Web Service {}", tradingWebService);
     }
 
@@ -149,7 +150,7 @@ public class BankImpl implements RemoteBank {
             wildflyAuthDbHelper.addUser(String.valueOf(customer.getCustomerId()), password, new String[]{UserRole.CUSTOMER.getRoleName()});
             return customer.getCustomerId();
         } catch (IOException e) {
-            //TODO Delete custom when AuthDB fails!
+            //TODO Delete customer when AuthDB fails!
             throw new BankException("Could not find JBoss property / home path", e);
         } catch (BankPersistenceException e) {
             throw new BankException("Failed to persist Customer!", e);

@@ -69,7 +69,7 @@ public class BankVolumeDAO {
     }
 
     private void createBankVolume() {
-        if (bankVolume != null) {
+        if (bankVolume == null) {
             bankVolume = new BankVolume();
             entityManager.persist(bankVolume);
             entityManager.flush();
