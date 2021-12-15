@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true">
-    <property name="HOME_LOG" value="c:/logs"/>
+    <property name="HOME_LOG" value="c:/bankApp/logs"/>
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>${HOME_LOG}/clientLog.log</file>
         <append>true</append>

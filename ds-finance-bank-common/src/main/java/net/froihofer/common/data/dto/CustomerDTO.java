@@ -1,6 +1,8 @@
 package net.froihofer.common.data.dto;
 
-public class CustomerDTO {
+import java.io.Serializable;
+
+public class CustomerDTO implements Serializable {
     private Long customerId;
     private String firstName;
     private String lastName;
@@ -10,6 +12,7 @@ public class CustomerDTO {
     }
 
     public CustomerDTO(Long customerId, String firstName, String lastName, String address) {
+        this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;

@@ -1,5 +1,6 @@
 package net.froihofer.data.dao;
 
+import net.froihofer.common.exception.BankException;
 import net.froihofer.data.BankPersistenceException;
 import net.froihofer.data.PersistenceFaultCode;
 import net.froihofer.data.entity.Customer;
@@ -29,6 +30,14 @@ public class CustomerDAO {
         }
     }
 
+    public Customer addCustomer(String firstName, String lastName, String address) throws BankPersistenceException {
+        if (firstName == null || lastName == null || address == null)
+            throw new BankPersistenceException(PersistenceFaultCode.FAILED_TO_INSERT, "Customer's info can not be null");
+        if (firstName.isBlank() || lastName.isBlank() || address.isBlank())
+            throw new BankPersistenceException(PersistenceFaultCode.FAILED_TO_INSERT, "Customer's info can not be empty");
+        return addCustomer(new Customer(firstName, lastName, address));
+    }
+
     public Customer getCustomerById(Long customerId) {
         return entityManager.find(Customer.class, customerId);
     }
@@ -39,11 +48,9 @@ public class CustomerDAO {
         if (lastName.isBlank())
             throw new BankPersistenceException(PersistenceFaultCode.FAILED_TO_FIND, "Name can not be empty");
         lastName = lastName.toLowerCase();
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Customer> criteria = criteriaBuilder.createQuery(Customer.class);
-        Root<Customer> from = criteria.from(Customer.class);
-        criteria.select(from).where(criteriaBuilder.like(from.get("last_name"), "%" + lastName + "%"));
-        TypedQuery<Customer> typedQuery = entityManager.createQuery(criteria);
+        String query = "select c FROM Customer as c where LOWER(c.lastName) like :lastName";
+        TypedQuery<Customer> typedQuery = entityManager.createQuery(query, Customer.class);
+        typedQuery.setParameter("lastName", "%" + lastName + "%");
         try {
             return typedQuery.getResultList();
         } catch (NoResultException noResultException) {

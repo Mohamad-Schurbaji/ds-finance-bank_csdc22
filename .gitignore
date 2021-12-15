@@ -1,0 +1,6 @@
+# Project exclude paths
+/ds-finance-bank-client/target/
+/ds-finance-bank-common/target/
+/ds-finance-bank-ear/target/
+/ds-finance-bank-ejb/target/
+/ds-finance-bank-web/target/

@@ -1,10 +1,11 @@
 package net.froihofer.data.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "customer")
-public class Customer {
+public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", nullable = false)
@@ -17,6 +18,9 @@ public class Customer {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Transient
+    private String userName;
+
     public Customer() {
     }
 
@@ -27,6 +31,7 @@ public class Customer {
     }
 
     public Customer(Long customerId, String firstName, String lastName, String address) {
+        this.customerId = customerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;

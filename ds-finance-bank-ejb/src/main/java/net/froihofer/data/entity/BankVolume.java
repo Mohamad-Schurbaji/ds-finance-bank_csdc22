@@ -1,15 +1,15 @@
 package net.froihofer.data.entity;
 
-import javax.enterprise.inject.Default;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "bank_volume")
-public class BankVolume {
+public class BankVolume implements Serializable {
     @Id
     @GeneratedValue
     private Long id;

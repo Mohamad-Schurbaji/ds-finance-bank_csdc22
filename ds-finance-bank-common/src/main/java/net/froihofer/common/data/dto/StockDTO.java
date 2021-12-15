@@ -1,9 +1,10 @@
 package net.froihofer.common.data.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class StockDTO {
+public class StockDTO implements Serializable {
     private Long stockId;
     private String companyName;
     private String symbol;
@@ -15,6 +16,16 @@ public class StockDTO {
     private CustomerDTO owner;
 
     public StockDTO() {
+    }
+
+    public StockDTO(String companyName, String symbol, String stockExchange,
+                    BigDecimal currentTradingPrice,
+                    LocalDateTime lastTradeTime) {
+        this.companyName = companyName;
+        this.symbol = symbol;
+        this.stockExchange = stockExchange;
+        this.currentTradingPrice = currentTradingPrice;
+        this.lastTradeTime = lastTradeTime;
     }
 
     public StockDTO(Long stockId, String companyName, String symbol, String stockExchange,

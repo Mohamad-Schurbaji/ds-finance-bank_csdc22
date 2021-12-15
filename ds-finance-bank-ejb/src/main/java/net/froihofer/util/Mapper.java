@@ -4,6 +4,7 @@ import net.froihofer.common.data.dto.CustomerDTO;
 import net.froihofer.common.data.dto.StockDTO;
 import net.froihofer.data.entity.Customer;
 import net.froihofer.data.entity.Stock;
+import net.froihofer.dsfinance.ws.trading.PublicStockQuote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,5 +66,30 @@ public final class Mapper {
                         stock.getLastTradeTime(),
                         convertCustomerToCustomerDto(stock.getOwner())))
                 .collect(Collectors.toList());
+    }
+
+    public static List<CustomerDTO> convertCustomerListToCustomerDtoList(List<Customer> list) {
+        if (list == null || list.isEmpty())
+            return new ArrayList<>();
+        return list.stream()
+                .map(customer -> new CustomerDTO(
+                        customer.getCustomerId(),
+                        customer.getFirstName(),
+                        customer.getLastName(),
+                        customer.getAddress()))
+                .collect(Collectors.toList());
+    }
+
+    public static List<StockDTO> convertPublicStockQuoteListToStockDtoList(List<PublicStockQuote> list){
+        if (list == null || list.isEmpty())
+            return new ArrayList<>();
+        return list.stream()
+                .map(publicStockQuote -> new StockDTO(
+                        publicStockQuote.getCompanyName(),
+                        publicStockQuote.getSymbol(),
+                        publicStockQuote.getStockExchange(),
+                        publicStockQuote.getLastTradePrice(),
+                        publicStockQuote.getLastTradeTime().toGregorianCalendar().toZonedDateTime().toLocalDateTime()
+                )).collect(Collectors.toList());
     }
 }

@@ -7,7 +7,6 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>net.froihofer</groupId>
     <artifactId>ds-finance-bank-ejb</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>ejb</packaging>
@@ -30,6 +29,11 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.0.7</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
