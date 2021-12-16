@@ -31,7 +31,6 @@ import javax.xml.ws.BindingProvider;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 //TODO Add logging
@@ -40,6 +39,10 @@ import java.util.List;
 @DeclareRoles({"customer", "employee"})
 public class BankImpl implements RemoteBank {
     private static final Logger log = LoggerFactory.getLogger(BankImpl.class);
+    private static final String WEB_SERVICE_URL = "https://edu.dedisys.org/ds-finance/ws/TradingService";
+    private static final String WEB_SERVICE_USERNAME = "csdc22bb_01";
+    private static final String WEB_SERVICE_PASSWORD = "daaG2poh5";
+
     @Inject
     private BankVolumeDAO bankVolumeDAO;
     @Inject
@@ -53,14 +56,9 @@ public class BankImpl implements RemoteBank {
 
 
     @PostConstruct
-    public void initializeWebService() {
-        tradingWebService = new TradingWebServiceService().getTradingWebServicePort();
-        BindingProvider bindingProvider = (BindingProvider) tradingWebService;
-        bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "https://edu.dedisys.org/ds-finance/ws/TradingService");
-        //Add credentials
-        bindingProvider.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, "");
-        bindingProvider.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "");
-        log.info("Initialized Web Service {}", tradingWebService);
+    public void init() {
+        initWebService();
+        initBankVolume();
     }
 
     @RolesAllowed({"employee", "customer"})
@@ -145,7 +143,6 @@ public class BankImpl implements RemoteBank {
         Customer customer;
         try {
             customer = customerDAO.addCustomer(firstName, lastName, address);
-            //TODO Add JBOSS_HOME as a system variable!!
             wildflyAuthDbHelper = new WildflyAuthDBHelper(new File(System.getenv("JBOSS_HOME")));
             wildflyAuthDbHelper.addUser(String.valueOf(customer.getCustomerId()), password, new String[]{UserRole.CUSTOMER.getRoleName()});
             return customer.getCustomerId();
@@ -166,5 +163,18 @@ public class BankImpl implements RemoteBank {
             return UserRole.EMPLOYEE;
         else
             throw new BankException("Unauthorized role!");
+    }
+
+    private void initWebService(){
+        tradingWebService = new TradingWebServiceService().getTradingWebServicePort();
+        BindingProvider bindingProvider = (BindingProvider) tradingWebService;
+        bindingProvider.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, WEB_SERVICE_URL);
+        bindingProvider.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, WEB_SERVICE_USERNAME);
+        bindingProvider.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, WEB_SERVICE_PASSWORD);
+        log.info("Initialized Web Service {}", tradingWebService);
+    }
+
+    private void initBankVolume(){
+        this.bankVolumeDAO.initBankVolume();
     }
 }

@@ -1,19 +1,24 @@
 package net.froihofer.data.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "bank_volume")
 public class BankVolume implements Serializable {
+    @Transient
+    public static final Long DEFAULT_BANK_VOLUME_ID = 1L;
     @Id
-    @GeneratedValue
-    private Long id;
+    private Long id = DEFAULT_BANK_VOLUME_ID;
     private BigDecimal volume = BigDecimal.valueOf(10000000000L);
+
+    public BankVolume(){}
+
+    public BankVolume(BankVolume bankVolume){
+        this.id = bankVolume.getId();
+        this.volume = bankVolume.getVolume();
+    }
 
     public Long getId() {
         return id;
