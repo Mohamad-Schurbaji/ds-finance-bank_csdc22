@@ -1,27 +1,0 @@
-
-}
-java:S1450 "gRemove the "applicationUsersDbDomain" field and declare it as a local variable in the relevant methods.(½á›¾
-r
-java:S1450"\Remove the "jbossHomePath" field and declare it as a local variable in the relevant methods.(…æáõ
-w
-java:S1450!"\Remove the "rolesDbDomain" field and declare it as a local variable in the relevant methods.(–´ÂÉûÿÿÿÿ
-F
-java:S1481F"+Remove this unused "result" local variable.(ïÀùÌùÿÿÿÿ
-<
-java:S1068"'Remove this unused "log" private field.(‹Ñ
-G
-java:S1068"1Remove this unused "jbossHomePath" private field.(…æáõ
-R
-java:S1068 "<Remove this unused "applicationUsersDbDomain" private field.(½á›¾
-L
-java:S1068!"1Remove this unused "rolesDbDomain" private field.(–´ÂÉûÿÿÿÿ
-a
-java:S2259P"FA "NullPointerException" could be thrown; "lastLine" is nullable here.(åßäßúÿÿÿÿ
-d
-java:S2095o"IUse try-with-resources or close this "PrintWriter" in a "finally" clause.(éÀ”»øÿÿÿÿ
-e
-java:S2095k"OUse try-with-resources or close this "InputStreamReader" in a "finally" clause.(ªŸ¶ê
-e
-java:S2095`"OUse try-with-resources or close this "InputStreamReader" in a "finally" clause.(ŠŠºß
-d
-java:S2095e"IUse try-with-resources or close this "PrintWriter" in a "finally" clause.(—Œ‚•ÿÿÿÿÿ

@@ -4,4 +4,18 @@
 /ds-finance-bank-ear/target/
 /ds-finance-bank-ejb/target/
 /ds-finance-bank-web/target/
-/.idea/
+
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/git_toolbox_prj.xml
+.idea/jpa-buddy.xml
+
+
+# Sensitive or high-churn files
+.idea/dataSources/
+.idea/dataSources.local.xml
+.idea/dataSources.xml
+
+# Sonarlint plugin
+.idea/sonarlint/
