@@ -12,7 +12,9 @@ import java.util.stream.Collectors;
 
 public final class Mapper {
 
-    private static Customer convertCustomerDtoToCustomer(CustomerDTO customerDTO) {
+    private Mapper(){}
+
+    public static Customer convertCustomerDtoToCustomer(CustomerDTO customerDTO) {
         if (customerDTO == null)
             return null;
         return new Customer(
@@ -23,7 +25,7 @@ public final class Mapper {
         );
     }
 
-    private static CustomerDTO convertCustomerToCustomerDto(Customer customer) {
+    public static CustomerDTO convertCustomerToCustomerDto(Customer customer) {
         if (customer == null)
             return null;
         return new CustomerDTO(

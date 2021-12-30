@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
-//TODO Add logging
 
 @Stateless(name = "MyBank")
 @DeclareRoles({"customer", "employee"})
@@ -70,6 +69,12 @@ public class BankImpl implements RemoteBank {
     @RolesAllowed({"employee", "customer"})
     @Override
     public BigDecimal sellStock(Long customerId, String stockSymbol, int amount) throws BankException {
+        try {
+            BigDecimal value = stockDAO.deleteShare(stockSymbol, customerId, amount);
+            bankVolumeDAO.increaseVolume(value);
+        } catch (BankPersistenceException e) {
+            throw new BankException("");
+        }
         throw new UnsupportedOperationException();
     }
 
@@ -88,7 +93,10 @@ public class BankImpl implements RemoteBank {
 
     @Override
     public CustomerDTO findCustomerById(Long customerId) throws BankException {
-        throw new UnsupportedOperationException();
+        Customer customer = customerDAO.getCustomerById(customerId);
+        if (customer == null)
+            throw new BankException("User with the id " + customerId + " does not exist!");
+        return Mapper.convertCustomerToCustomerDto(customer);
     }
 
     @RolesAllowed({"employee"})
@@ -115,11 +123,6 @@ public class BankImpl implements RemoteBank {
         } catch (BankPersistenceException e) {
             throw new BankException("Could not retrieve customer's portfolio", e);
         }
-    }
-
-    @Override
-    public List<StockDTO> retrieveStockQuotes(List<String> symbols) throws BankException {
-        throw new UnsupportedOperationException();
     }
 
     @RolesAllowed({"employee", "customer"})

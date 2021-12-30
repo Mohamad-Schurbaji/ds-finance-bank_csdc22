@@ -110,25 +110,27 @@ public class Employee extends User {
     public void run() {
         boolean exit = false;
         try {
+            System.err.println(ansi().fg(GREEN).a(Ansi.Attribute.INTENSITY_BOLD).a("\n\tWelcome to FH Bank System\n").reset());
             while (!exit) {
                 System.err.println(ansi().eraseScreen().fg(GREEN).a(Ansi.Attribute.INTENSITY_BOLD).a("\n\nEmployee Menu").reset());
                 System.err.println(ansi().eraseScreen().fg(CYAN).a("Press 0 to exit").reset());
-                System.err.println(ansi().fg(CYAN).a("Press 1 to buy shares").reset());
-                System.err.println(ansi().fg(CYAN).a("Press 2 to add customer").reset());
-                System.err.println(ansi().fg(CYAN).a("Press 3 to search stocks").reset());
+                System.err.println(ansi().fg(CYAN).a("Press 1 to add customer").reset());
+                System.err.println(ansi().fg(CYAN).a("Press 2 to search stocks").reset());
+                System.err.println(ansi().fg(CYAN).a("Press 3 to buy shares").reset());
+
                 String input = bufferedReader.readLine();
                 switch (input) {
                     case "0":
                         exit = true;
                         break;
                     case "1":
-                        buyShares();
-                        break;
-                    case "2":
                         addCustomer();
                         break;
-                    case "3":
+                    case "2":
                         searchStocks();
+                        break;
+                    case "3":
+                        buyShares();
                         break;
                     default:
                         System.err.println(ansi().fg(RED).a("Wrong input!").reset());

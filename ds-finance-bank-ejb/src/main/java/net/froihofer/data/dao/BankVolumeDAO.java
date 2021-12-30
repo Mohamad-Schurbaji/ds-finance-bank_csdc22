@@ -35,8 +35,6 @@ public class BankVolumeDAO {
                                 amount.doubleValue(), MAX_VOLUME, bankVolume.getVolume().doubleValue()));
             }
             bankVolume.setVolume(newVolume);
-            //entityManager.merge(bankVolume);
-            //entityManager.flush();
             return newVolume;
         } catch (Exception exception) {
             throw new BankPersistenceException(PersistenceFaultCode.FAILED_TO_UPDATE,
@@ -56,8 +54,6 @@ public class BankVolumeDAO {
                                 amount.doubleValue(), bankVolume.getVolume().doubleValue()));
             }
             bankVolume.setVolume(newVolume);
-            //entityManager.merge(bankVolume);
-            //entityManager.flush();
             return newVolume;
         } catch (Exception exception) {
             throw new BankPersistenceException(PersistenceFaultCode.FAILED_TO_UPDATE,

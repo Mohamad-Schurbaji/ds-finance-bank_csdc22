@@ -23,8 +23,6 @@ public interface RemoteBank {
 
     List<StockDTO> listCustomerStockPortfolio(Long customerId) throws BankException;
 
-    List<StockDTO> retrieveStockQuotes(List<String> symbols) throws BankException;
-
     BigDecimal retrieveBankAvailableVolume() throws BankException;
 
     Long addCustomer(String firstName, String lastName, String address, String password) throws BankException;

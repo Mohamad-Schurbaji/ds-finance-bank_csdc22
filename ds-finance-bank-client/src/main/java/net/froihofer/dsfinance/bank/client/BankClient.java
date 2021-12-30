@@ -24,7 +24,6 @@ import static org.fusesource.jansi.Ansi.ansi;
  * Main class for starting the bank client.
  */
 public class BankClient {
-    //TODO: Use lanterna for the GUI
     //+ https://github.com/mabe02/lanterna
     private static final Logger log = LoggerFactory.getLogger(BankClient.class);
 
